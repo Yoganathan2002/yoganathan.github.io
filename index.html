@@ -1,131 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Yoganathan V | Resume Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yoganathan V | Futuristic Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Navigation -->
+  <div class="parallax-bg"></div>
+
   <nav>
     <ul>
-      <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
-  <header id="home">
-    <h1>Hi, I'm <span class="highlight">Yoganathan V</span></h1>
-    <h2>I am <span id="typing"></span></h2>
-    <p>Backend Engineer | Java | Spring Boot | Cloud Deployment</p>
-    <a href="resume.pdf" class="btn">Download Resume</a>
-  </header>
-
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Software Engineer with ~1 year of experience developing Java and Spring Boot backend applications in a product-focused incubation environment at IIT Madras. Skilled in RESTful APIs, MySQL optimization, and AI service integration.</p>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Technical Skills</h2>
-    <div class="skill">
-      <p>Java</p>
-      <div class="bar"><div class="progress" style="width:90%"></div></div>
-    </div>
-    <div class="skill">
-      <p>Spring Boot</p>
-      <div class="bar"><div class="progress" style="width:85%"></div></div>
-    </div>
-    <div class="skill">
-      <p>MySQL</p>
-      <div class="bar"><div class="progress" style="width:80%"></div></div>
-    </div>
-    <div class="skill">
-      <p>Docker & Kubernetes</p>
-      <div class="bar"><div class="progress" style="width:70%"></div></div>
+  <section id="about" class="section">
+    <h1>I'm Yoganathan V</h1>
+    <h2>Backend Engineer | Java | Spring Boot | Cloud Developer</h2>
+    <p>Passionate backend engineer with 1+ years of experience building cutting-edge solutions at IIT Madras Incubation.</p>
+    <div class="stats">
+      <div class="stat">1+ Years Experience</div>
+      <div class="stat">IIT Madras Incubation</div>
     </div>
   </section>
 
-  <!-- Experience -->
-  <section id="experience">
-    <h2>Professional Experience</h2>
-    <div class="timeline">
-      <div class="job">
-        <h3>Software Engineer – RealVoid, IIT Madras (Jan 2025 – Feb 2026)</h3>
-        <p>Developed backend system logic, REST API integrations, and integrated AI services (Speech-to-Text, Text-to-Speech). Ensured stable performance through clean coding and collaboration.</p>
-      </div>
-      <div class="job">
-        <h3>Intern – Crown Shield Securities (May 2024 – Jun 2024)</h3>
-        <p>Built authentication APIs, optimized MySQL schemas, and improved production readiness with structured logging and error handling.</p>
-      </div>
-    </div>
+  <section id="skills" class="section">
+    <h2>Skills & Tools</h2>
+    <div class="skill-bar"><span>Java</span><div class="bar"><div style="width:90%"></div></div></div>
+    <div class="skill-bar"><span>Spring Boot</span><div class="bar"><div style="width:85%"></div></div></div>
+    <div class="skill-bar"><span>MySQL</span><div class="bar"><div style="width:80%"></div></div></div>
+    <div class="skill-bar"><span>Docker & Kubernetes</span><div class="bar"><div style="width:75%"></div></div></div>
   </section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
+  <section id="projects" class="section">
+    <h2>My Projects</h2>
     <div class="project-card">
-      <h3>Local AI Chatbot</h3>
-      <p>Spring Boot backend with Ollama, Kafka integration, privacy-focused LLM inference.</p>
-      <a href="https://github.com/Yoganathan2002" target="_blank">View on GitHub</a>
+      <h3>AI ChatBot</h3>
+      <p>Intelligent Local Assistant</p>
+      <a href="#">View Project</a>
     </div>
     <div class="project-card">
       <h3>AI Image Generator</h3>
-      <p>REST APIs for text-to-image generation, Base64 image handling, robust validation.</p>
+      <p>Creative AI Art Creation</p>
+      <a href="#">View Project</a>
     </div>
     <div class="project-card">
-      <h3>Open World Game Backend</h3>
-      <p>Entity management, game-state handling, event-driven interactions using OOP principles.</p>
+      <h3>Game Backend System</h3>
+      <p>Open World Server</p>
+      <a href="#">View Project</a>
     </div>
   </section>
 
-  <!-- Education -->
-  <section id="education">
-    <h2>Education</h2>
-    <p>MSc (Information Technology), University of Madras (2023–2025)</p>
-    <p>BSc (Computer Science), Rajeswari Vedhachalam Government Arts College (2020–2023)</p>
+  <section id="experience" class="section">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="entry">
+        <h3>Software Engineer – RealVoid, IIT Madras (2025–2026)</h3>
+        <p>Developed advanced backend systems and AI integrations.</p>
+      </div>
+      <div class="entry">
+        <h3>Intern – Crown Shield Securities (2024)</h3>
+        <p>Built secure authentication systems and optimized databases.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact">
+  <section id="contact" class="section">
     <h2>Contact Me</h2>
     <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
+      <input type="text" placeholder="Name" required />
+      <input type="email" placeholder="Email" required />
+      <textarea placeholder="Message" required></textarea>
+      <button type="submit">Send Message</button>
     </form>
   </section>
 
   <footer>
-    <p>&copy; 2026 Yoganathan V | Built with ❤️ using HTML, CSS & JS</p>
+    <p>&copy; 2026 Yoganathan V | Built with ❤️ futuristic vision</p>
   </footer>
 
-  <!-- Typing Effect Script -->
-  <script>
-    const roles = ["Backend Engineer", "Java Developer", "Cloud Enthusiast"];
-    let i = 0, j = 0, current = "", isDeleting = false;
-
-    function type() {
-      current = roles[i];
-      document.getElementById("typing").textContent = current.substring(0, j);
-      if (!isDeleting && j < current.length) j++;
-      else if (isDeleting && j > 0) j--;
-      else {
-        isDeleting = !isDeleting;
-        if (!isDeleting) i = (i + 1) % roles.length;
-      }
-      setTimeout(type, isDeleting ? 100 : 200);
-    }
-    type();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
