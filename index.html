@@ -2,58 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Yoganathan V | Portfolio</title>
+  <title>Yoganathan V | Resume Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Yoganathan V</h1>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="home">
+    <h1>Hi, I'm <span class="highlight">Yoganathan V</span></h1>
+    <h2>I am <span id="typing"></span></h2>
     <p>Backend Engineer | Java | Spring Boot | Cloud Deployment</p>
-    <p>Email: vyoganathan007@outlook.com | Phone: +91 9344480923</p>
-    <p><a href="https://linkedin.com/in/your-link">LinkedIn</a> | <a href="https://github.com/Yoganathan2002">GitHub</a></p>
+    <a href="resume.pdf" class="btn">Download Resume</a>
   </header>
 
-  <section>
-    <h2>Professional Summary</h2>
-    <p>Software Engineer with ~1 year of experience developing Java and Spring Boot backend applications in a product-focused incubation environment at IIT Madras. Experienced in building RESTful APIs, managing MySQL databases, and integrating AI services into production systems.</p>
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Software Engineer with ~1 year of experience developing Java and Spring Boot backend applications in a product-focused incubation environment at IIT Madras. Skilled in RESTful APIs, MySQL optimization, and AI service integration.</p>
   </section>
 
-  <section>
+  <!-- Skills -->
+  <section id="skills">
     <h2>Technical Skills</h2>
-    <ul>
-      <li><strong>Languages:</strong> Java, SQL, OOP, Collections, Multithreading</li>
-      <li><strong>Backend:</strong> Spring Boot, Spring Data JPA, REST APIs, Microservices</li>
-      <li><strong>Databases:</strong> MySQL (Schema Design, Indexing, Query Optimization)</li>
-      <li><strong>Tools:</strong> Git, GitHub, Maven, Postman, IntelliJ IDEA</li>
-    </ul>
+    <div class="skill">
+      <p>Java</p>
+      <div class="bar"><div class="progress" style="width:90%"></div></div>
+    </div>
+    <div class="skill">
+      <p>Spring Boot</p>
+      <div class="bar"><div class="progress" style="width:85%"></div></div>
+    </div>
+    <div class="skill">
+      <p>MySQL</p>
+      <div class="bar"><div class="progress" style="width:80%"></div></div>
+    </div>
+    <div class="skill">
+      <p>Docker & Kubernetes</p>
+      <div class="bar"><div class="progress" style="width:70%"></div></div>
+    </div>
   </section>
 
-  <section>
+  <!-- Experience -->
+  <section id="experience">
     <h2>Professional Experience</h2>
-    <h3>Software Engineer / Incubation Trainee – RealVoid, IIT Madras (Jan 2025 – Feb 2026)</h3>
-    <p>Developed backend system logic, REST API integrations, and workflow implementations for VR solutions. Integrated AI services (Speech-to-Text, Text-to-Speech), managed MySQL databases, and ensured stable performance through clean coding and collaboration.</p>
-
-    <h3>Software Engineer Intern – Crown Shield Securities (May 2024 – Jun 2024)</h3>
-    <p>Built backend services using Java and Spring Boot. Implemented authentication APIs, optimized MySQL schemas, and improved production readiness with structured logging and error handling.</p>
+    <div class="timeline">
+      <div class="job">
+        <h3>Software Engineer – RealVoid, IIT Madras (Jan 2025 – Feb 2026)</h3>
+        <p>Developed backend system logic, REST API integrations, and integrated AI services (Speech-to-Text, Text-to-Speech). Ensured stable performance through clean coding and collaboration.</p>
+      </div>
+      <div class="job">
+        <h3>Intern – Crown Shield Securities (May 2024 – Jun 2024)</h3>
+        <p>Built authentication APIs, optimized MySQL schemas, and improved production readiness with structured logging and error handling.</p>
+      </div>
+    </div>
   </section>
 
-  <section>
+  <!-- Projects -->
+  <section id="projects">
     <h2>Projects</h2>
-    <ul>
-      <li><strong>Local AI Chatbot:</strong> Spring Boot backend with Ollama, Kafka integration, privacy-focused LLM inference.</li>
-      <li><strong>AI Image Generator:</strong> REST APIs for text-to-image generation, Base64 image handling, robust validation.</li>
-      <li><strong>Open World Game Backend:</strong> Entity management, game-state handling, event-driven interactions using OOP principles.</li>
-    </ul>
+    <div class="project-card">
+      <h3>Local AI Chatbot</h3>
+      <p>Spring Boot backend with Ollama, Kafka integration, privacy-focused LLM inference.</p>
+      <a href="https://github.com/Yoganathan2002" target="_blank">View on GitHub</a>
+    </div>
+    <div class="project-card">
+      <h3>AI Image Generator</h3>
+      <p>REST APIs for text-to-image generation, Base64 image handling, robust validation.</p>
+    </div>
+    <div class="project-card">
+      <h3>Open World Game Backend</h3>
+      <p>Entity management, game-state handling, event-driven interactions using OOP principles.</p>
+    </div>
   </section>
 
-  <section>
+  <!-- Education -->
+  <section id="education">
     <h2>Education</h2>
     <p>MSc (Information Technology), University of Madras (2023–2025)</p>
     <p>BSc (Computer Science), Rajeswari Vedhachalam Government Arts College (2020–2023)</p>
   </section>
 
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
   <footer>
-    <p>&copy; 2026 Yoganathan V | Built with ❤️ using HTML & CSS</p>
+    <p>&copy; 2026 Yoganathan V | Built with ❤️ using HTML, CSS & JS</p>
   </footer>
+
+  <!-- Typing Effect Script -->
+  <script>
+    const roles = ["Backend Engineer", "Java Developer", "Cloud Enthusiast"];
+    let i = 0, j = 0, current = "", isDeleting = false;
+
+    function type() {
+      current = roles[i];
+      document.getElementById("typing").textContent = current.substring(0, j);
+      if (!isDeleting && j < current.length) j++;
+      else if (isDeleting && j > 0) j--;
+      else {
+        isDeleting = !isDeleting;
+        if (!isDeleting) i = (i + 1) % roles.length;
+      }
+      setTimeout(type, isDeleting ? 100 : 200);
+    }
+    type();
+  </script>
 </body>
 </html>
