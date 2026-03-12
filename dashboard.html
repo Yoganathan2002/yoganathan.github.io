@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lamp-style="hybrid">
+<head>
+    <meta charset="UTF-8" />
+    <title>Yoganathan | Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<!-- Reuse background + water + particles -->
+<canvas id="particle-canvas"></canvas>
+<div class="bg-waves"></div>
+<div class="water-surface water-surface-main"></div>
+<div class="water-surface water-surface-deep"></div>
+<div class="cursor-ripple"></div>
+
+<!-- Top nav (simple) -->
+<header class="top-nav">
+    <div class="brand">YOGANATHAN<span>_DASH</span></div>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="nav-link" id="goPortfolio">Portfolio</a></li>
+            <li><a href="#messages" class="nav-link active">Messages</a></li>
+            <li><a href="#admin" class="nav-link">Admin</a></li>
+        </ul>
+    </nav>
+
+    <!-- Same lamp theme toggle -->
+    <div class="lamp-toggle" id="lampToggle">
+        <div class="lamp-base"></div>
+        <div class="lamp-neck"></div>
+        <div class="lamp-head">
+            <div class="lamp-bulb"></div>
+            <div class="lamp-halo"></div>
+        </div>
+        <div class="lamp-light-cone"></div>
+    </div>
+</header>
+
+<!-- Control dock reused -->
+<div class="control-dock">
+    <div class="control-group">
+        <span class="control-label">Lamp Style</span>
+        <div class="control-buttons">
+            <button class="control-btn" data-style="hybrid">Hybrid</button>
+            <button class="control-btn" data-style="halo">Halo</button>
+            <button class="control-btn" data-style="minimal">Minimal</button>
+            <button class="control-btn" data-style="dome">Dome</button>
+        </div>
+    </div>
+</div>
+
+<main>
+    <!-- MESSAGES SECTION (user + friends + unknown) -->
+    <section id="messages" class="section">
+        <div class="panel section-panel">
+            <div class="section-header">
+                <div class="section-pill">MESSAGES</div>
+                <h2>Realtime Messages</h2>
+            </div>
+
+            <div class="contact-layout">
+                <!-- Left: conversations list -->
+                <div class="contact-side">
+                    <div class="contact-grid">
+                        <div class="contact-item hover-tilt">
+                            <span class="label">You</span>
+                            <span class="value">Current viewer session</span>
+                        </div>
+                        <div class="contact-item hover-tilt">
+                            <span class="label">Friends</span>
+                            <span class="value" id="friendsCount">0 online</span>
+                        </div>
+                        <div class="contact-item hover-tilt">
+                            <span class="label">Unknown</span>
+                            <span class="value" id="unknownCount">0 active</span>
+                        </div>
+                    </div>
+
+                    <div class="panel small" style="margin-top:12px;">
+                        <h3>Active Conversations</h3>
+                        <ul id="conversationList" style="margin-top:6px;font-size:13px;color:var(--text-muted);list-style:none;"></ul>
+                    </div>
+                </div>
+
+                <!-- Center: chat window -->
+                <div class="panel" style="padding:16px 18px; display:flex; flex-direction:column; min-height:320px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <div>
+                            <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.16em; color:var(--text-muted);">
+                                Live Chat
+                            </div>
+                            <div id="chatTargetLabel" style="font-size:14px; margin-top:2px;">
+                                Public Inbox
+                            </div>
+                        </div>
+                        <div style="font-size:11px; color:var(--text-muted);" id="connectionStatus">
+                            Connecting…
+                        </div>
+                    </div>
+
+                    <div id="chatMessages" style="
+              flex:1;
+              border-radius:10px;
+              border:1px solid rgba(0,174,239,0.25);
+              padding:10px;
+              overflow-y:auto;
+              font-size:13px;
+              background:rgba(5,7,18,0.7);
+            ">
+                        <!-- messages injected here -->
+                    </div>
+
+                    <form id="chatForm" style="display:flex; gap:8px; margin-top:10px;">
+                        <input
+                                type="text"
+                                id="chatInput"
+                                placeholder="Type a message…"
+                                style="
+                  flex:1;
+                  padding:8px 10px;
+                  border-radius:999px;
+                  border:1px solid rgba(0,174,239,0.25);
+                  background:rgba(5,7,18,0.7);
+                  color:var(--text-main);
+                  font-size:13px;
+                  outline:none;
+                "
+                        />
+                        <button type="submit" class="btn primary" style="white-space:nowrap;">Send</button>
+                    </form>
+                </div>
+
+                <!-- Right: template access info -->
+                <div class="map-panel hover-tilt">
+                    <div class="map-header">Template Access</div>
+                    <div class="map-body" style="flex-direction:column; align-items:flex-start; padding:12px;">
+                        <div style="font-size:13px; margin-bottom:8px;">
+                            Users can request access to download your portfolio template.
+                        </div>
+                        <div style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">
+                            After payment is successful, admin grants download permission.
+                        </div>
+                        <button class="btn ghost" id="requestTemplateBtn">
+                            Request Template Access
+                        </button>
+                        <div id="templateRequestStatus" style="margin-top:8px; font-size:12px; color:var(--text-muted);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADMIN SECTION (separate, you only) -->
+    <section id="admin" class="section">
+        <div class="panel section-panel">
+            <div class="section-header">
+                <div class="section-pill">ADMIN</div>
+                <h2>Admin Control Center</h2>
+            </div>
+
+            <!-- Simple admin login gate (frontend only, backend must verify) -->
+            <div id="adminLoginView">
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">
+                    Admin only. Enter admin key to manage settings, menus, and template access.
+                </p>
+                <form id="adminLoginForm" style="display:flex; gap:8px; max-width:320px;">
+                    <input
+                            type="password"
+                            id="adminKey"
+                            placeholder="Admin access key"
+                            style="
+                flex:1;
+                padding:8px 10px;
+                border-radius:999px;
+                border:1px solid rgba(0,174,239,0.25);
+                background:rgba(5,7,18,0.7);
+                color:var(--text-main);
+                font-size:13px;
+                outline:none;
+              "
+                    />
+                    <button type="submit" class="btn primary">Enter</button>
+                </form>
+                <div id="adminLoginError" style="margin-top:6px; font-size:12px; color:#f97373;"></div>
+            </div>
+
+            <!-- Admin dashboard (hidden until login) -->
+            <div id="adminDashboard" style="display:none; margin-top:18px;">
+                <div class="resume-grid">
+                    <!-- Site style + menu control -->
+                    <div class="resume-card">
+                        <h3>Site Style & Menus</h3>
+                        <p style="font-size:13px; color:var(--text-muted);">
+                            Control theme, default lamp style, and main menu visibility.
+                        </p>
+                        <div style="margin-top:8px; font-size:13px;">
+                            <label>
+                                <input type="checkbox" id="toggleWaterEffects" />
+                                Enable water surface effects
+                            </label>
+                        </div>
+                        <div style="margin-top:8px; font-size:13px;">
+                            <label for="defaultLampSelect">Default lamp style:</label>
+                            <select id="defaultLampSelect" style="margin-left:4px; font-size:13px;">
+                                <option value="hybrid">Hybrid</option>
+                                <option value="halo">Halo</option>
+                                <option value="minimal">Minimal</option>
+                                <option value="dome">Dome</option>
+                            </select>
+                        </div>
+                        <div style="margin-top:10px; font-size:12px; color:var(--text-muted);">
+                            These settings should be saved via backend API and applied on all pages.
+                        </div>
+                    </div>
+
+                    <!-- Template access approvals -->
+                    <div class="resume-card">
+                        <h3>Template Access Requests</h3>
+                        <p style="font-size:13px; color:var(--text-muted);">
+                            Approve or deny template download after payment confirmation.
+                        </p>
+                        <ul id="templateRequestsList" style="margin-top:8px; font-size:13px; list-style:none; padding-left:0;">
+                            <!-- Requests injected here -->
+                        </ul>
+                    </div>
+
+                    <!-- Connections overview -->
+                    <div class="resume-card">
+                        <h3>Connections</h3>
+                        <p style="font-size:13px; color:var(--text-muted);">
+                            Overview of friends, unknown users, and active sessions.
+                        </p>
+                        <div style="margin-top:8px; font-size:13px;">
+                            <div>Friends online: <span id="adminFriendsOnline">0</span></div>
+                            <div>Unknown active: <span id="adminUnknownActive">0</span></div>
+                            <div>Total users: <span id="adminTotalUsers">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Messages monitor -->
+                    <div class="resume-card">
+                        <h3>Live Message Monitor</h3>
+                        <p style="font-size:13px; color:var(--text-muted);">
+                            View incoming messages in realtime (read-only view).
+                        </p>
+                        <div id="adminMessagesMonitor" style="
+                margin-top:8px;
+                max-height:200px;
+                overflow-y:auto;
+                font-size:12px;
+                border-radius:10px;
+                border:1px solid rgba(0,174,239,0.25);
+                padding:8px;
+                background:rgba(5,7,18,0.7);
+              "></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="script.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

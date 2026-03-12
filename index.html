@@ -1,89 +1,321 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-lamp-style="hybrid">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yoganathan V | Futuristic Portfolio</title>
+  <title>Yoganathan | Backend Engineer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="parallax-bg"></div>
+<!-- Background canvas for particles -->
+<canvas id="particle-canvas"></canvas>
 
+<!-- Gradient waves layer -->
+<div class="bg-waves"></div>
+
+<!-- Water surface layers -->
+<div class="water-surface water-surface-main"></div>
+<div class="water-surface water-surface-deep"></div>
+
+<!-- Cursor ripple layer -->
+<div class="cursor-ripple"></div>
+
+<!-- Ambient sound -->
+<!-- Replace 'ambient.mp3' with your own soft loop file -->
+<audio id="ambientAudio" src="ambient.mp3" loop></audio>
+
+<!-- NAV -->
+<header class="top-nav">
+  <div class="brand">YOGANATHAN<span>_V</span></div>
   <nav>
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#resume" class="nav-link">Resume</a></li>
+      <li><a href="#work" class="nav-link">Work</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
   </nav>
 
+  <!-- Hybrid lamp: base + curved neck + dome head + halo -->
+  <div class="lamp-toggle" id="lampToggle">
+    <div class="lamp-base"></div>
+    <div class="lamp-neck"></div>
+    <div class="lamp-head">
+      <div class="lamp-bulb"></div>
+      <div class="lamp-halo"></div>
+    </div>
+    <div class="lamp-light-cone"></div>
+  </div>
+</header>
+
+<!-- Lamp style + sound controls -->
+<div class="control-dock">
+  <div class="control-group">
+    <span class="control-label">Lamp Style</span>
+    <div class="control-buttons">
+      <button class="control-btn" data-style="hybrid">Hybrid</button>
+      <button class="control-btn" data-style="halo">Halo</button>
+      <button class="control-btn" data-style="minimal">Minimal</button>
+      <button class="control-btn" data-style="dome">Dome</button>
+    </div>
+  </div>
+  <div class="control-group">
+    <span class="control-label">Ambient</span>
+    <button class="control-btn" id="soundToggle">Sound Off</button>
+  </div>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section id="home" class="section hero-section">
+    <div class="panel hero-panel float">
+      <div class="hero-tag">Backend · AI · Systems</div>
+      <h1 class="hero-title">
+        Designing reliable backends<br />
+        <span>for intelligent systems.</span>
+      </h1>
+      <p class="hero-sub">
+        Java · Spring Boot · MySQL · Kafka · AI-integrated services.
+      </p>
+      <div class="hero-actions">
+        <a href="#resume" class="btn primary">View Resume</a>
+        <a href="#work" class="btn ghost">View Projects</a>
+      </div>
+    </div>
+
+    <div class="side-panels">
+      <div class="panel small float delay-1">
+        <h3>Experience</h3>
+        <p>~1 year building backend systems at IIT Madras incubation.</p>
+      </div>
+      <div class="panel small float delay-2">
+        <h3>Focus</h3>
+        <p>REST APIs, data consistency, async flows, AI integration.</p>
+      </div>
+      <div class="panel small float delay-3">
+        <h3>Stack</h3>
+        <p>Java · Spring Boot · MySQL · Kafka · Docker · Git</p>
+      </div>
+    </div>
+  </section>
+  <!-- USER/ADMIN TOGGLE -->
+  <div class="mode-toggle" id="modeToggle">
+    <span class="icon">⚡</span>
+    <span id="modeLabel">User</span>
+  </div>
+
+  <!-- LIVE CHAT BUTTON -->
+  <button class="live-chat-btn" id="liveChatBtn">💬 Try Live Chat</button>
+
+
+  <!-- ABOUT -->
   <section id="about" class="section">
-    <h1>I'm Yoganathan V</h1>
-    <h2>Backend Engineer | Java | Spring Boot | Cloud Developer</h2>
-    <p>Passionate backend engineer with 1+ years of experience building cutting-edge solutions at IIT Madras Incubation.</p>
-    <div class="stats">
-      <div class="stat">1+ Years Experience</div>
-      <div class="stat">IIT Madras Incubation</div>
-    </div>
-  </section>
-
-  <section id="skills" class="section">
-    <h2>Skills & Tools</h2>
-    <div class="skill-bar"><span>Java</span><div class="bar"><div style="width:90%"></div></div></div>
-    <div class="skill-bar"><span>Spring Boot</span><div class="bar"><div style="width:85%"></div></div></div>
-    <div class="skill-bar"><span>MySQL</span><div class="bar"><div style="width:80%"></div></div></div>
-    <div class="skill-bar"><span>Docker & Kubernetes</span><div class="bar"><div style="width:75%"></div></div></div>
-  </section>
-
-  <section id="projects" class="section">
-    <h2>My Projects</h2>
-    <div class="project-card">
-      <h3>AI ChatBot</h3>
-      <p>Intelligent Local Assistant</p>
-      <a href="#">View Project</a>
-    </div>
-    <div class="project-card">
-      <h3>AI Image Generator</h3>
-      <p>Creative AI Art Creation</p>
-      <a href="#">View Project</a>
-    </div>
-    <div class="project-card">
-      <h3>Game Backend System</h3>
-      <p>Open World Server</p>
-      <a href="#">View Project</a>
-    </div>
-  </section>
-
-  <section id="experience" class="section">
-    <h2>Experience</h2>
-    <div class="timeline">
-      <div class="entry">
-        <h3>Software Engineer – RealVoid, IIT Madras (2025–2026)</h3>
-        <p>Developed advanced backend systems and AI integrations.</p>
+    <div class="panel section-panel">
+      <div class="section-header">
+        <div class="section-pill">ABOUT</div>
+        <h2>Who I am</h2>
       </div>
-      <div class="entry">
-        <h3>Intern – Crown Shield Securities (2024)</h3>
-        <p>Built secure authentication systems and optimized databases.</p>
+      <p>
+        I’m a backend-focused Software Development Engineer with experience in Java, Spring Boot,
+        MySQL, and distributed backend patterns. I enjoy designing predictable APIs, integrating AI
+        services, and building systems that are easy to reason about, debug, and scale.
+      </p>
+      <p>
+        I’ve worked in a research-driven incubation environment at IIT Madras, focusing on
+        application logic, workflow orchestration, and AI-powered features for VR solutions—
+        owning the backend behavior and reliability.
+      </p>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume" class="section">
+    <div class="panel section-panel">
+      <div class="section-header">
+        <div class="section-pill">RESUME</div>
+        <h2>Professional Snapshot</h2>
+      </div>
+
+      <div class="resume-grid">
+        <div class="resume-card">
+          <h3>Professional Summary</h3>
+          <p>
+            Backend-focused Software Development Engineer with ~1 year of experience building Java and Spring Boot
+            backend systems in a product-oriented incubation environment at IIT Madras. Experienced in designing RESTful
+            APIs, MySQL optimization, asynchronous processing, and AI-integrated backend services.
+          </p>
+        </div>
+
+        <div class="resume-card">
+          <h3>Technical Skills</h3>
+          <ul>
+            <li><strong>Languages:</strong> Java, SQL, OOP, Collections, Multithreading</li>
+            <li><strong>Backend:</strong> Spring Boot, Spring Data JPA, REST APIs, Microservices basics</li>
+            <li><strong>Database:</strong> MySQL (schema design, indexing, query optimization, transactions)</li>
+            <li><strong>Tools:</strong> Git, GitHub, Maven, Postman, IntelliJ IDEA</li>
+          </ul>
+        </div>
+
+        <div class="resume-card">
+          <h3>Experience</h3>
+          <h4>Software Engineer – Real Void (IIT Madras Incubation Cell)</h4>
+          <p class="meta">Jan 2025 – Feb 2026</p>
+          <ul>
+            <li>Implemented backend logic, API integration, and workflows for VR client solutions.</li>
+            <li>Integrated AI models (Speech-to-Text, Text-to-Speech) via APIs.</li>
+            <li>Managed MySQL data, ensured stable performance, and maintained clean, maintainable code.</li>
+          </ul>
+          <h4>Backend Intern – Crown Shield Securities & Surveillance</h4>
+          <p class="meta">May 2024 – Jun 2024</p>
+          <ul>
+            <li>Built authentication and access control APIs using Java + Spring Boot.</li>
+            <li>Optimized MySQL schemas and queries for internal platforms.</li>
+            <li>Improved production readiness with logging, validation, and centralized error handling.</li>
+          </ul>
+        </div>
+
+        <div class="resume-card">
+          <h3>Projects</h3>
+          <ul>
+            <li><strong>Local AI Chatbot Backend:</strong> Spring Boot + Spring AI + Ollama + Kafka for fully local LLM inference.</li>
+            <li><strong>AI Image Generator Backend:</strong> Core Java REST APIs for text-to-image generation using third-party AI services.</li>
+            <li><strong>Open World Game Logic:</strong> Backend simulation for entities, game state, and event-driven interactions.</li>
+          </ul>
+          <h3>Education</h3>
+          <ul>
+            <li>MSc (Information Technology), University of Madras (2023–2025)</li>
+            <li>BSc (Computer Science), Rajeswari Vedhachalam Govt Arts College (2020–2023)</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- WORK -->
+  <section id="work" class="section">
+    <div class="panel section-panel">
+      <div class="section-header">
+        <div class="section-pill">WORK</div>
+        <h2>Selected Projects</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="project-card">
+          <h3>Local AI Chatbot Backend</h3>
+          <p>
+            Spring Boot backend orchestrating local LLM inference via Ollama, with Kafka-based async processing and
+            structured prompt handling.
+          </p>
+          <div class="tags">
+            <span>Spring Boot</span><span>Ollama</span><span>Kafka</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <h3>AI Image Generator APIs</h3>
+          <p>
+            Core Java REST APIs for text-to-image generation, handling Base64 images, validation, and robust error flows.
+          </p>
+          <div class="tags">
+            <span>Java</span><span>REST</span><span>AI APIs</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <h3>Open World Game Logic</h3>
+          <p>
+            Backend simulation for entities, events, and game state transitions using clean OOP design.
+          </p>
+          <div class="tags">
+            <span>Java</span><span>OOP</span><span>Simulation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
   <section id="contact" class="section">
-    <h2>Contact Me</h2>
-    <form>
-      <input type="text" placeholder="Name" required />
-      <input type="email" placeholder="Email" required />
-      <textarea placeholder="Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+    <div class="panel section-panel">
+      <div class="section-header">
+        <div class="section-pill">CONTACT</div>
+        <h2>Let’s talk systems.</h2>
+      </div>
+      <p>
+        Open to backend-focused roles where reliability, clarity, and system thinking matter.
+      </p>
+
+      <div class="contact-layout">
+        <!-- Contact form -->
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="field-group">
+            <input type="text" id="name" required placeholder=" " />
+            <label for="name">Name</label>
+            <span class="error-msg" data-for="name"></span>
+          </div>
+          <div class="field-group">
+            <input type="email" id="email" required placeholder=" " />
+            <label for="email">Email</label>
+            <span class="error-msg" data-for="email"></span>
+          </div>
+          <div class="field-group">
+            <input type="text" id="subject" required placeholder=" " />
+            <label for="subject">Subject</label>
+            <span class="error-msg" data-for="subject"></span>
+          </div>
+          <div class="field-group">
+            <textarea id="message" rows="4" required placeholder=" "></textarea>
+            <label for="message">Message</label>
+            <span class="error-msg" data-for="message"></span>
+          </div>
+
+          <button type="submit" class="btn primary send-btn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-ripple"></span>
+            <span class="btn-check">✓</span>
+          </button>
+        </form>
+
+        <!-- Contact info + social + resume -->
+        <div class="contact-side">
+          <div class="contact-grid">
+            <div class="contact-item hover-tilt">
+              <span class="label">Email</span>
+              <span class="value">vyoganathan007@outlook.com</span>
+            </div>
+            <div class="contact-item hover-tilt">
+              <span class="label">Phone</span>
+              <span class="value">+91 9344480923</span>
+            </div>
+            <div class="contact-item hover-tilt">
+              <span class="label">Location</span>
+              <span class="value">Chennai, Tamil Nadu, India</span>
+            </div>
+          </div>
+
+          <div class="social-row">
+            <a href="#" class="social-icon">GitHub</a>
+            <a href="#" class="social-icon">LinkedIn</a>
+            <a href="mailto:vyoganathan007@outlook.com" class="social-icon">Email</a>
+          </div>
+
+          <a href="#" class="btn ghost resume-download">
+            Download Resume
+          </a>
+        </div>
+
+        <!-- Map / placeholder panel -->
+        <div class="map-panel hover-tilt">
+          <div class="map-header">Location Snapshot</div>
+          <div class="map-body">
+            <div class="map-placeholder">
+              Chennai · Tamil Nadu · India
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
+</main>
 
-  <footer>
-    <p>&copy; 2026 Yoganathan V | Built with ❤️ futuristic vision</p>
-  </footer>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
