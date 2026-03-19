@@ -2,53 +2,66 @@
 <html lang="en" data-theme="dark" data-lamp-style="hybrid">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Yoganathan | Backend Engineer</title>
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-<!-- Background canvas for particles -->
+<canvas id="waveCanvas"></canvas>
+
 <canvas id="particle-canvas"></canvas>
 
-<!-- Gradient waves layer -->
 <div class="bg-waves"></div>
 
-<!-- Water surface layers -->
 <div class="water-surface water-surface-main"></div>
 <div class="water-surface water-surface-deep"></div>
 
-<!-- Cursor ripple layer -->
 <div class="cursor-ripple"></div>
 
-<!-- Ambient sound -->
-<!-- Replace 'ambient.mp3' with your own soft loop file -->
 <audio id="ambientAudio" src="ambient.mp3" loop></audio>
 
-<!-- NAV -->
+<button class="magnetic-btn">View Work</button>
+
 <header class="top-nav">
-  <div class="brand">YOGANATHAN<span>_V</span></div>
-  <nav>
-    <ul>
+  <div class="brand-block">
+    <div class="brand">YOGANATHAN<span>_V</span></div>
+    <div class="nav-location">Chennai, Tamil Nadu, India</div>
+  </div>
+
+  <nav class="nav-center">
+    <ul id="navMenu">
       <li><a href="#home" class="nav-link active">Home</a></li>
       <li><a href="#about" class="nav-link">About</a></li>
       <li><a href="#resume" class="nav-link">Resume</a></li>
       <li><a href="#work" class="nav-link">Work</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
+      <div class="nav-indicator"></div>
     </ul>
   </nav>
 
-  <!-- Hybrid lamp: base + curved neck + dome head + halo -->
-  <div class="lamp-toggle" id="lampToggle">
-    <div class="lamp-base"></div>
-    <div class="lamp-neck"></div>
-    <div class="lamp-head">
-      <div class="lamp-bulb"></div>
-      <div class="lamp-halo"></div>
+  <div class="mode-toggle" id="modeToggle">
+    <span class="icon">⚡</span>
+    <span id="modeLabel">User</span>
+  </div>
+
+  <div class="nav-right">
+    <div class="lamp-toggle lamp-small" id="lampToggle">
+      <div class="lamp-base"></div>
+      <div class="lamp-neck"></div>
+
+      <div class="lamp-head">
+        <div class="lamp-bulb"></div>
+        <div class="lamp-halo"></div>
+      </div>
+
+      <div class="lamp-light-cone"></div>
     </div>
-    <div class="lamp-light-cone"></div>
   </div>
 </header>
 
-<!-- Lamp style + sound controls -->
 <div class="control-dock">
   <div class="control-group">
     <span class="control-label">Lamp Style</span>
@@ -59,6 +72,7 @@
       <button class="control-btn" data-style="dome">Dome</button>
     </div>
   </div>
+
   <div class="control-group">
     <span class="control-label">Ambient</span>
     <button class="control-btn" id="soundToggle">Sound Off</button>
@@ -66,7 +80,6 @@
 </div>
 
 <main>
-  <!-- HERO -->
   <section id="home" class="section hero-section">
     <div class="panel hero-panel float">
       <div class="hero-tag">Backend · AI · Systems</div>
@@ -78,7 +91,7 @@
         Java · Spring Boot · MySQL · Kafka · AI-integrated services.
       </p>
       <div class="hero-actions">
-        <a href="#resume" class="btn primary">View Resume</a>
+        <a href="Resume/Yoganathan.pdf" target="_blank" class="btn primary">View Resume</a>
         <a href="#work" class="btn ghost">View Projects</a>
       </div>
     </div>
@@ -98,17 +111,11 @@
       </div>
     </div>
   </section>
-  <!-- USER/ADMIN TOGGLE -->
-  <div class="mode-toggle" id="modeToggle">
-    <span class="icon">⚡</span>
-    <span id="modeLabel">User</span>
-  </div>
 
-  <!-- LIVE CHAT BUTTON -->
-  <button class="live-chat-btn" id="liveChatBtn">💬 Try Live Chat</button>
+  <button class="live-chat-btn" id="liveChatBtn">
+    💬 Try Live Chat
+  </button>
 
-
-  <!-- ABOUT -->
   <section id="about" class="section">
     <div class="panel section-panel">
       <div class="section-header">
@@ -128,14 +135,12 @@
     </div>
   </section>
 
-  <!-- RESUME -->
   <section id="resume" class="section">
     <div class="panel section-panel">
       <div class="section-header">
         <div class="section-pill">RESUME</div>
         <h2>Professional Snapshot</h2>
       </div>
-
       <div class="resume-grid">
         <div class="resume-card">
           <h3>Professional Summary</h3>
@@ -191,7 +196,6 @@
     </div>
   </section>
 
-  <!-- WORK -->
   <section id="work" class="section">
     <div class="panel section-panel">
       <div class="section-header">
@@ -209,6 +213,7 @@
             <span>Spring Boot</span><span>Ollama</span><span>Kafka</span>
           </div>
         </div>
+
         <div class="project-card">
           <h3>AI Image Generator APIs</h3>
           <p>
@@ -218,6 +223,7 @@
             <span>Java</span><span>REST</span><span>AI APIs</span>
           </div>
         </div>
+
         <div class="project-card">
           <h3>Open World Game Logic</h3>
           <p>
@@ -231,7 +237,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="section">
     <div class="panel section-panel">
       <div class="section-header">
@@ -241,25 +246,26 @@
       <p>
         Open to backend-focused roles where reliability, clarity, and system thinking matter.
       </p>
-
       <div class="contact-layout">
-        <!-- Contact form -->
         <form id="contactForm" class="contact-form" novalidate>
           <div class="field-group">
             <input type="text" id="name" required placeholder=" " />
             <label for="name">Name</label>
             <span class="error-msg" data-for="name"></span>
           </div>
+
           <div class="field-group">
             <input type="email" id="email" required placeholder=" " />
             <label for="email">Email</label>
             <span class="error-msg" data-for="email"></span>
           </div>
+
           <div class="field-group">
             <input type="text" id="subject" required placeholder=" " />
             <label for="subject">Subject</label>
             <span class="error-msg" data-for="subject"></span>
           </div>
+
           <div class="field-group">
             <textarea id="message" rows="4" required placeholder=" "></textarea>
             <label for="message">Message</label>
@@ -272,46 +278,7 @@
             <span class="btn-check">✓</span>
           </button>
         </form>
-
-        <!-- Contact info + social + resume -->
-        <div class="contact-side">
-          <div class="contact-grid">
-            <div class="contact-item hover-tilt">
-              <span class="label">Email</span>
-              <span class="value">vyoganathan007@outlook.com</span>
-            </div>
-            <div class="contact-item hover-tilt">
-              <span class="label">Phone</span>
-              <span class="value">+91 9344480923</span>
-            </div>
-            <div class="contact-item hover-tilt">
-              <span class="label">Location</span>
-              <span class="value">Chennai, Tamil Nadu, India</span>
-            </div>
-          </div>
-
-          <div class="social-row">
-            <a href="#" class="social-icon">GitHub</a>
-            <a href="#" class="social-icon">LinkedIn</a>
-            <a href="mailto:vyoganathan007@outlook.com" class="social-icon">Email</a>
-          </div>
-
-          <a href="#" class="btn ghost resume-download">
-            Download Resume
-          </a>
-        </div>
-
-        <!-- Map / placeholder panel -->
-        <div class="map-panel hover-tilt">
-          <div class="map-header">Location Snapshot</div>
-          <div class="map-body">
-            <div class="map-placeholder">
-              Chennai · Tamil Nadu · India
-            </div>
-          </div>
-        </div>
       </div>
-
     </div>
   </section>
 </main>

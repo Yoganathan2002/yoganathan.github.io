@@ -1,0 +1,18 @@
+/* Position the wave canvas behind everything */
+#waveCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Keeps it behind your content */
+  pointer-events: none; /* Allows clicks to pass through to buttons/links */
+  background: transparent;
+}
+
+/* Ensure your body allows the canvas to show through */
+body {
+  margin: 0;
+  overflow-x: hidden;
+  /* Your existing body styles... */
+}

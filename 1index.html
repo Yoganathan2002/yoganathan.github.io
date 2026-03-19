@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dot Waves Lake Test</title>
+    <style>
+        body {
+          margin: 0;
+          background: #000; /* dark background for contrast */
+        }
+        /* Dot Waves Canvas — holographic lake effect */
+        #waveCanvas {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100vw;
+          height: 50vh;       /* half the page height */
+          z-index: 1;         /* above particle canvas if you add one */
+          pointer-events: none;
+          background: transparent;
+        }
+    </style>
+</head>
+<body>
+<!-- Premium holographic dot waves lake -->
+<canvas id="waveCanvas"></canvas>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const waveCanvas = document.getElementById("waveCanvas");
+      const ctx = waveCanvas.getContext("2d");
+
+      function resizeCanvas() {
+        waveCanvas.width = window.innerWidth;
+        waveCanvas.height = window.innerHeight * 0.5; // half page height
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      let t = 0;
+      let scrollSpeed = 0;
+      let lastScrollY = window.scrollY;
+      let mouseX = window.innerWidth / 2;
+
+      // Track scroll speed
+      window.addEventListener("scroll", () => {
+        const dy = Math.abs(window.scrollY - lastScrollY);
+        scrollSpeed = Math.min(40, dy);
+        lastScrollY = window.scrollY;
+      });
+
+      // Track mouse position
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+      });
+
+      function drawDotWaves() {
+        ctx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+
+        // Dark/light mode detection
+        const theme = document.documentElement.getAttribute("data-theme");
+        const baseColor = theme === "dark" ? "#ffffff" : "#000000";
+
+        const spacing = 24;
+        const baseAmplitude = 18;
+        const frequency = 0.02;
+        const dotRadius = 1.4;
+
+        const amplitudeBoost = scrollSpeed * 0.5 + (mouseX / window.innerWidth) * 10;
+        const amplitude = baseAmplitude + amplitudeBoost;
+
+        const layers = [
+          { offset: 40, speed: 0.04 },
+          { offset: 80, speed: 0.03 },
+          { offset: 120, speed: 0.02 }
+        ];
+
+        layers.forEach(({ offset, speed }) => {
+          for (let x = 0; x < waveCanvas.width; x += spacing) {
+            const y = waveCanvas.height / 2 + offset + Math.sin(x * frequency + t * speed) * amplitude;
+
+            // Glow effect
+            const glow = ctx.createRadialGradient(x, y, 0, x, y, dotRadius * 6);
+            glow.addColorStop(0, baseColor);
+            glow.addColorStop(1, theme === "dark" ? "rgba(255,255,255,0)" : "rgba(0,0,0,0)");
+            ctx.fillStyle = glow;
+
+            ctx.beginPath();
+            ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+
+        scrollSpeed *= 0.9;
+        t += 1;
+        requestAnimationFrame(drawDotWaves);
+      }
+
+      drawDotWaves();
+    });
+</script>
+</body>

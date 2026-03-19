@@ -75,6 +75,27 @@ body {
     transform: translate3d(-40px, 20px, 0) scale(1.05);
   }
 }
+/* Particle canvas stays as is */
+#particlesCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* keep behind everything */
+}
+
+/* Dot wave canvas */
+#waveCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* above particles but behind water layers */
+  pointer-events: none;
+}
+
 
 /* WATER SURFACE LAYERS */
 .water-surface {
@@ -254,8 +275,8 @@ html[data-theme="light"] .control-btn {
 /* HYBRID LAMP – base structure */
 .lamp-toggle {
   position: relative;
-  width: 80px;
-  height: 95px;
+  width: 85px;
+  height: 123px;
   cursor: pointer;
   display: flex;
   align-items: flex-end;
@@ -264,8 +285,8 @@ html[data-theme="light"] .control-btn {
 
 /* Base */
 .lamp-base {
-  width: 50px;
-  height: 11px;
+  width: 30px;
+  height: 10px;
   background: #e5e7eb;
   border-radius: 999px;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.45);
@@ -277,8 +298,8 @@ html[data-theme="light"] .control-btn {
   bottom: 24px;
   width: 44px;
   height: 44px;
-  border-radius: 44px;
-  border: 5px solid #e5e7eb;
+  border-radius: 84px;
+  border: 8px solid #e5e7eb;
   border-color: #e5e7eb transparent transparent transparent;
   transform-origin: bottom left;
   transform: rotate(-20deg);
@@ -301,31 +322,74 @@ html[data-theme="light"] .control-btn {
   transform: rotate(-18deg);
 }
 
-/* Bulb */
+/* glass bulb body */
 .lamp-bulb {
-  width: 11px;
-  height: 11px;
-  background: #fef9c3;
+  position: relative;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  box-shadow: 0 0 14px rgba(254, 249, 195, 0.9);
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.95) 0%, rgba(255,255,210,.9) 20%, rgba(253,224,71,.85) 40%, rgba(250,204,21,.75) 60%, rgba(0,0,0,.15) 100%);
+  box-shadow: 0 0 6px rgba(255,255,220,.9), 0 0 16px rgba(250,204,21,.8), 0 0 36px rgba(250,204,21,.65), 0 0 70px rgba(250,204,21,.35);
+  animation: bulbGlow 2.6s ease-in-out infinite;
 }
 
-/* Halo ring */
+/* glass highlight */
+.lamp-bulb::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.95);
+  filter: blur(.6px);
+}
+
+/* filament core */
+.lamp-bulb::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff7c2;
+  box-shadow: 0 0 6px rgba(255,240,160,.9), 0 0 12px rgba(250,204,21,.8);
+}
+
+/* outer halo */
 .lamp-halo {
   position: absolute;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  border: 2px solid rgba(0, 174, 239, 0.7);
-  box-shadow: 0 0 18px rgba(0, 174, 239, 0.9);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,240,180,.55) 0%, rgba(255,210,100,.35) 30%, rgba(255,210,100,.15) 55%, transparent 70%);
   opacity: 0;
-  transform: scale(0.7);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transform: scale(.6);
+  transition: opacity .35s ease, transform .35s ease;
 }
 
+/* lamp active */
+.lamp-toggle.active .lamp-halo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* subtle light breathing */
+@keyframes bulbGlow {
+  0%,100% {
+    box-shadow: 0 0 6px rgba(255,255,220,.9), 0 0 16px rgba(250,204,21,.8), 0 0 36px rgba(250,204,21,.65), 0 0 70px rgba(250,204,21,.35);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(255,255,230,1), 0 0 24px rgba(250,204,21,.95), 0 0 50px rgba(250,204,21,.75), 0 0 90px rgba(250,204,21,.45);
+  }
+}
+
+/* light theme adjustment */
 html[data-theme="light"] .lamp-bulb {
-  background: #fde68a;
-  box-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fff7c2 25%, #fde68a 45%, #fbbf24 65%, rgba(0,0,0,.12) 100%);
 }
 
 /* Light cone */
@@ -369,7 +433,9 @@ html[data-theme="light"] .lamp-light-cone {
   100% { transform: rotate(-18deg); }
 }
 
-/* LAMP STYLE VARIANTS (via data-lamp-style on html) */
+/* =========================================
+   LAMP STYLE VARIANTS (via data-lamp-style on html)
+   ========================================= */
 
 /* HYBRID (default) */
 html[data-lamp-style="hybrid"] .lamp-neck {
@@ -388,7 +454,7 @@ html[data-lamp-style="hybrid"] .lamp-halo {
 
 /* HALO – no neck, floating ring */
 html[data-lamp-style="halo"] .lamp-neck {
-  opacity: 0;
+  opacity: 3;
 }
 html[data-lamp-style="halo"] .lamp-head {
   width: 0;
@@ -430,7 +496,7 @@ html[data-lamp-style="dome"] .lamp-neck {
   width: 34px;
   height: 34px;
   border-width: 5px;
-  border-radius: 34px;
+  border-radius: 3px;
   transform: rotate(-10deg);
 }
 html[data-lamp-style="dome"] .lamp-head {
@@ -443,6 +509,100 @@ html[data-lamp-style="dome"] .lamp-head {
 html[data-lamp-style="dome"] .lamp-halo {
   opacity: 0.6;
   transform: scale(0.9);
+}
+
+/* =========================================
+   NEW LAMP STYLES
+   ========================================= */
+
+/* PIXAR – Articulated mechanical arm and bell-shaped head */
+html[data-lamp-style="pixar"] .lamp-neck {
+  width: 38px;
+  height: 38px;
+  border-width: 6px;
+  border-radius: 8px;
+  border-color: #9ca3af transparent transparent #9ca3af;
+  transform: rotate(15deg);
+  bottom: 20px;
+  left: 12px;
+}
+html[data-lamp-style="pixar"] .lamp-head {
+  width: 38px;
+  height: 28px;
+  background: #9ca3af;
+  border-radius: 18px 18px 4px 4px;
+  left: 36px;
+  bottom: 50px;
+  transform: rotate(-35deg);
+}
+html[data-lamp-style="pixar"] .lamp-halo {
+  opacity: 0.85;
+  transform: scale(0.85);
+}
+
+/* FUTURISTIC – Sleek dark visor, sharp angles, and cyan neon glow */
+html[data-lamp-style="futuristic"] .lamp-neck {
+  width: 45px;
+  height: 45px;
+  border-width: 3px;
+  border-radius: 0;
+  border-color: #0ea5e9 transparent transparent transparent;
+  box-shadow: -2px -2px 8px rgba(14, 165, 233, 0.4);
+  transform: rotate(-40deg) skewX(20deg);
+  bottom: 25px;
+}
+html[data-lamp-style="futuristic"] .lamp-head {
+  width: 42px;
+  height: 8px;
+  background: #1e293b;
+  border-top: 2px solid #0ea5e9;
+  border-radius: 4px;
+  left: 34px;
+  bottom: 60px;
+  transform: rotate(-10deg);
+}
+html[data-lamp-style="futuristic"] .lamp-bulb {
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #cffafe 20%, #06b6d4 40%, #0891b2 60%, rgba(0,0,0,.15) 100%);
+  box-shadow: 0 0 6px rgba(207,250,254,.9), 0 0 16px rgba(6,182,212,.8), 0 0 36px rgba(6,182,212,.65), 0 0 70px rgba(6,182,212,.35);
+  animation: bulbGlowFuture 2.6s ease-in-out infinite;
+}
+html[data-lamp-style="futuristic"] .lamp-bulb::after {
+  background: #e0f2fe;
+  box-shadow: 0 0 6px #bae6fd, 0 0 12px #0ea5e9;
+}
+@keyframes bulbGlowFuture {
+  0%,100% { box-shadow: 0 0 6px rgba(207,250,254,.9), 0 0 16px rgba(6,182,212,.8), 0 0 36px rgba(6,182,212,.65), 0 0 70px rgba(6,182,212,.35); }
+  50%     { box-shadow: 0 0 10px rgba(255,255,255,1), 0 0 24px rgba(6,182,212,.95), 0 0 50px rgba(6,182,212,.75), 0 0 90px rgba(6,182,212,.45); }
+}
+
+/* FLOATING ORB (Unique) – Anti-gravity, disconnected glowing sphere */
+html[data-lamp-style="floating"] .lamp-base {
+  background: #475569;
+}
+html[data-lamp-style="floating"] .lamp-neck {
+  opacity: 0;
+}
+html[data-lamp-style="floating"] .lamp-head {
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 50%;
+  left: 30px;
+  bottom: 50px;
+  transform: rotate(0deg);
+  animation: floatOrb 3s ease-in-out infinite;
+}
+html[data-lamp-style="floating"] .lamp-bulb {
+  width: 26px;
+  height: 26px;
+}
+html[data-lamp-style="floating"] .lamp-halo {
+  transform: scale(1.2);
+}
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* Layout */
@@ -969,34 +1129,36 @@ html[data-theme="light"] .map-panel {
 .hover-tilt:hover {
   transform: translateY(-4px);
 }
-  /* --- USER/ADMIN TOGGLE --- */
-  .mode-toggle {
-    position: fixed;
-    top: 13%;
-    left: 0;
-    transform: translateY(-50%);
-    background: rgba(5,7,18,0.8);
-    border: 1px solid rgba(0,174,239,0.25);
-    border-radius: 0 12px 12px 0;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    color: var(--text-main);
-    font-size: 13px;
-    z-index: 200;
-    backdrop-filter: blur(12px);
-    transition: 0.2s ease;
-  }
-  .mode-toggle:hover {
-    background: rgba(0,174,239,0.25);
-    color: var(--accent);
-  }
-  .mode-toggle .icon {
-    font-size: 16px;
-    color: var(--accent);
-  }
+/* --- USER/ADMIN TOGGLE --- */
+.mode-toggle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: rgba(7, 1, 0, 0.8);
+  border: 1px solid rgba(0, 174, 239, 0.25);
+  border-radius: 12px 0 0 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #fff; /* Force text to always be white */
+  font-size: 13px;
+  z-index: 200;
+  backdrop-filter: blur(12px);
+  transition: .2s ease;
+}
+
+.mode-toggle:hover {
+  background: rgba(0, 174, 239, 0.25);
+  color: #fff; /* Keep text white even on hover */
+}
+
+.mode-toggle .icon {
+  font-size: 16px;
+  color: var(--accent); /* Accent color for icon */
+}
 
   /* --- LIVE CHAT BUTTON --- */
   .live-chat-btn {
@@ -1051,5 +1213,128 @@ html[data-theme="light"] .map-panel {
     right: 10px;
     bottom: 10px;
   }
+.lamp-head{
+transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
 
+.lamp-toggle:hover .lamp-head{
+transform:rotate(-28deg);
+}
+.glass-panel{
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px) saturate(150%);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 20px 40px rgba(0,0,0,.6),
+inset 0 0 20px rgba(255,255,255,.03);
+transition:.35s;
+}
+
+.glass-panel:hover{
+transform:translateY(-4px);
+box-shadow:
+0 30px 60px rgba(0,0,0,.8),
+inset 0 0 30px rgba(255,255,255,.06);
+}
+}
+.top-nav{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 60px;
+background:rgba(4,5,10,.75);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(0,174,239,.15);
+z-index:100;
+}
+
+/* center menu */
+.nav-center{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+}
+
+.nav-center ul{
+display:flex;
+gap:28px;
+list-style:none;
+position:relative;
+}
+
+.nav-center a{
+text-decoration:none;
+font-size:14px;
+color:var(--text-muted);
+padding:6px 2px;
+position:relative;
+transition:.25s;
+}
+
+.nav-center a:hover{
+color:var(--text-main);
+}
+
+/* sliding indicator */
+.nav-indicator{
+position:absolute;
+bottom:-4px;
+height:2px;
+width:40px;
+background:var(--accent);
+border-radius:4px;
+transition:
+left .35s cubic-bezier(.4,0,.2,1),
+width .35s cubic-bezier(.4,0,.2,1);
+}.magnetic-btn{
+ padding:12px 22px;
+ border-radius:999px;
+ border:1px solid var(--accent);
+ background:transparent;
+ color:var(--text-main);
+ cursor:pointer;
+ position:relative;
+ transition:transform .2s ease;
+ }.cursor{
+  position:fixed;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--accent);
+  pointer-events:none;
+  mix-blend-mode:difference;
+  z-index:999;
+  transform:translate(-50%,-50%);
+  transition:transform .08s linear;
+  }
+/* =========================================
+   ZEN MODE (Cinema Mode)
+========================================= */
+/* Smooth transition for all main UI elements */
+header, main, .control-dock, .live-chat-btn, .magnetic-btn {
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When the body has 'zen-mode', hide the UI */
+body.zen-mode header,
+body.zen-mode main,
+body.zen-mode .control-dock,
+body.zen-mode .live-chat-btn,
+body.zen-mode .magnetic-btn {
+  opacity: 0 !important;
+  pointer-events: none !important; /* Prevents invisible buttons from being clicked */
+}
+
+/* Optional: change the cursor to a pointer when hovering over empty space to hint it's clickable */
+body {
+  cursor: pointer;
+}
+/* But keep normal cursor behavior over actual content */
+a, button, input, textarea, .panel, .project-card, .resume-card {
+  cursor: auto;
 }
